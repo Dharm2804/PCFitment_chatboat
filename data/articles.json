@@ -1,0 +1,513 @@
+[
+  {
+    "id": 1,
+    "currentUrl": "https://partsconnect.zendesk.com/hc/en-us/articles/115001118751-Signing-Up",
+    "previousUrl": "",
+    "flagupdate": false,
+    "delete": false
+  },
+  {
+    "id": 2,
+    "currentUrl": "https://partsconnect.zendesk.com/hc/en-us/articles/115001121912-Logging-in-for-the-first-time",
+    "previousUrl": "",
+    "flagupdate": false,
+    "delete": false
+  },
+  {
+    "id": 3,
+    "currentUrl": "https://partsconnect.zendesk.com/hc/en-us/articles/115001122292-Dashboard-Your-Fitment-Info",
+    "previousUrl": "",
+    "flagupdate": false,
+    "delete": false
+  },
+  {
+    "id": 4,
+    "currentUrl": "https://partsconnect.zendesk.com/hc/en-us/articles/10275291602189-Brand-Add-Use-Brands",
+    "previousUrl": "",
+    "flagupdate": false,
+    "delete": false
+  },
+  {
+    "id": 5,
+    "currentUrl": "https://partsconnect.zendesk.com/hc/en-us/articles/115001118571-How-to-Add-parts",
+    "previousUrl": "",
+    "flagupdate": false,
+    "delete": false
+  },
+  {
+    "id": 6,
+    "currentUrl": "https://partsconnect.zendesk.com/hc/en-us/articles/39964741481229-How-to-Add-Vehicle-Fitments-for-Your-Part",
+    "previousUrl": "",
+    "flagupdate": false,
+    "delete": false
+  },
+  {
+    "id": 7,
+    "currentUrl": "https://partsconnect.zendesk.com/hc/en-us/articles/115001118551-Your-Parts-Fitment",
+    "previousUrl": "",
+    "flagupdate": false,
+    "delete": false
+  },
+  {
+    "id": 8,
+    "currentUrl": "https://partsconnect.zendesk.com/hc/en-us/articles/35670603361037-Different-Marketplaces",
+    "previousUrl": "",
+    "flagupdate": false,
+    "delete": false
+  },
+  {
+    "id": 9,
+    "currentUrl": "https://partsconnect.zendesk.com/hc/en-us/articles/28139108360205-Inherited-Part",
+    "previousUrl": "",
+    "flagupdate": false,
+    "delete": false
+  },
+  {
+    "id": 10,
+    "currentUrl": "https://partsconnect.zendesk.com/hc/en-us/articles/360039073611-Error-Fitment-Correction",
+    "previousUrl": "",
+    "flagupdate": false,
+    "delete": false
+  },
+  {
+    "id": 11,
+    "currentUrl": "https://partsconnect.zendesk.com/hc/en-us/articles/38490070236173-How-to-Delete-Fitments-for-a-Specific-Part-in-PCFitment",
+    "previousUrl": "",
+    "flagupdate": false,
+    "delete": false
+  },
+  {
+    "id": 12,
+    "currentUrl": "https://partsconnect.zendesk.com/hc/en-us/articles/12407054585229-Update-ASIN",
+    "previousUrl": "",
+    "flagupdate": false,
+    "delete": false
+  },
+  {
+    "id": 13,
+    "currentUrl": "https://partsconnect.zendesk.com/hc/en-us/articles/28822668816653-Auto-Sync-in-PCFitment",
+    "previousUrl": "",
+    "flagupdate": false,
+    "delete": false
+  },
+  {
+    "id": 14,
+    "currentUrl": "https://partsconnect.zendesk.com/hc/en-us/articles/12406713125645-Download-Templates",
+    "previousUrl": "",
+    "flagupdate": false,
+    "delete": false
+  },
+  {
+    "id": 15,
+    "currentUrl": "https://partsconnect.zendesk.com/hc/en-us/articles/360036247991-How-To-Use-PCFitment-Excel-Template",
+    "previousUrl": "",
+    "flagupdate": false,
+    "delete": false
+  },
+  {
+    "id": 16,
+    "currentUrl": "https://partsconnect.zendesk.com/hc/en-us/articles/41100889525901-How-to-Import-Parts-Using-Batch-Upload",
+    "previousUrl": "",
+    "flagupdate": false,
+    "delete": false
+  },
+  {
+    "id": 17,
+    "currentUrl": "https://partsconnect.zendesk.com/hc/en-us/articles/360036248371-How-to-Add-Fitments-Using-Batch-Upload",
+    "previousUrl": "",
+    "flagupdate": false,
+    "delete": false
+  },
+  {
+    "id": 18,
+    "currentUrl": "https://partsconnect.zendesk.com/hc/en-us/articles/36140291600909-Helpful-Function-for-Batch-Upload",
+    "previousUrl": "",
+    "flagupdate": false,
+    "delete": false
+  },
+  {
+    "id": 19,
+    "currentUrl": "https://partsconnect.zendesk.com/hc/en-us/articles/39965095680013-Batch-Uploading-eBay-Specific-Vehicle-Fitment",
+    "previousUrl": "",
+    "flagupdate": false,
+    "delete": false
+  },
+  {
+    "id": 20,
+    "currentUrl": "https://partsconnect.zendesk.com/hc/en-us/articles/46062963658381-How-to-View-Fitment-Data-After-Batch-Upload",
+    "previousUrl": "",
+    "flagupdate": false,
+    "delete": false
+  },
+  {
+    "id": 21,
+    "currentUrl": "https://partsconnect.zendesk.com/hc/en-us/articles/20491455758221-Add-Edit-Universal-Collection",
+    "previousUrl": "",
+    "flagupdate": false,
+    "delete": false
+  },
+  {
+    "id": 22,
+    "currentUrl": "https://partsconnect.zendesk.com/hc/en-us/articles/20491676817805-Add-Part-into-Universal-Collection",
+    "previousUrl": "",
+    "flagupdate": false,
+    "delete": false
+  },
+  {
+    "id": 23,
+    "currentUrl": "https://partsconnect.zendesk.com/hc/en-us/articles/20492059135373-Add-existing-part-into-Universal-Collection-Update-collection-of-a-part",
+    "previousUrl": "",
+    "flagupdate": false,
+    "delete": false
+  },
+  {
+    "id": 24,
+    "currentUrl": "https://partsconnect.zendesk.com/hc/en-us/articles/35672910870541-Amazon-Support-Resources",
+    "previousUrl": "",
+    "flagupdate": false,
+    "delete": false
+  },
+  {
+    "id": 25,
+    "currentUrl": "https://partsconnect.zendesk.com/hc/en-us/articles/35672925923469-eBay-Support-Resources",
+    "previousUrl": "",
+    "flagupdate": false,
+    "delete": false
+  },
+  {
+    "id": 26,
+    "currentUrl": "https://partsconnect.zendesk.com/hc/en-us/articles/12407539528845-Walmart-Product-Setup",
+    "previousUrl": "",
+    "flagupdate": false,
+    "delete": false
+  },
+  {
+    "id": 27,
+    "currentUrl": "https://partsconnect.zendesk.com/hc/en-us/articles/9740249574797-Submit-Fitments-on-Walmart",
+    "previousUrl": "",
+    "flagupdate": false,
+    "delete": false
+  },
+  {
+    "id": 28,
+    "currentUrl": "https://partsconnect.zendesk.com/hc/en-us/articles/35671181058573-Submit-to-StoreAutomator",
+    "previousUrl": "",
+    "flagupdate": false,
+    "delete": false
+  },
+  {
+    "id": 29,
+    "currentUrl": "https://partsconnect.zendesk.com/hc/en-us/articles/35671214822541-Submit-to-Suredone",
+    "previousUrl": "",
+    "flagupdate": false,
+    "delete": false
+  },
+  {
+    "id": 30,
+    "currentUrl": "https://partsconnect.zendesk.com/hc/en-us/articles/36377588042125-How-to-setup-channeladvisor-with-PCFitment",
+    "previousUrl": "",
+    "flagupdate": false,
+    "delete": false
+  },
+  {
+    "id": 31,
+    "currentUrl": "https://partsconnect.zendesk.com/hc/en-us/articles/115001118651-Submit-ACES-to-Amazon",
+    "previousUrl": "",
+    "flagupdate": false,
+    "delete": false
+  },
+  {
+    "id": 32,
+    "currentUrl": "https://partsconnect.zendesk.com/hc/en-us/articles/23609211027469-Setup-AmazonConfirmedFit-on-the-Product",
+    "previousUrl": "",
+    "flagupdate": false,
+    "delete": false
+  },
+  {
+    "id": 33,
+    "currentUrl": "https://partsconnect.zendesk.com/hc/en-us/articles/35825733853837-Amazon-Fitment-Stripe-Not-Visible-Here-s-Why",
+    "previousUrl": "",
+    "flagupdate": false,
+    "delete": false
+  },
+  {
+    "id": 34,
+    "currentUrl": "https://partsconnect.zendesk.com/hc/en-us/articles/23609607828237-How-to-use-AmazonConfirmed-Fit-in-PCFitment",
+    "previousUrl": "",
+    "flagupdate": false,
+    "delete": false
+  },
+  {
+    "id": 35,
+    "currentUrl": "https://partsconnect.zendesk.com/hc/en-us/articles/360039073091-Amazon-Category-Selection",
+    "previousUrl": "",
+    "flagupdate": false,
+    "delete": false
+  },
+  {
+    "id": 36,
+    "currentUrl": "https://partsconnect.zendesk.com/hc/en-us/articles/360038681072-Amazon-PCFitment-Mapping",
+    "previousUrl": "",
+    "flagupdate": false,
+    "delete": false
+  },
+  {
+    "id": 37,
+    "currentUrl": "https://partsconnect.zendesk.com/hc/en-us/articles/23853480102669-Error-Code-Helps-for-AmazonConfirmedFit",
+    "previousUrl": "",
+    "flagupdate": false,
+    "delete": false
+  },
+  {
+    "id": 38,
+    "currentUrl": "https://partsconnect.zendesk.com/hc/en-us/articles/115001319832-Troubleshooting-Errors",
+    "previousUrl": "",
+    "flagupdate": false,
+    "delete": false
+  },
+  {
+    "id": 39,
+    "currentUrl": "https://partsconnect.zendesk.com/hc/en-us/articles/115001118691-How-Long-Does-It-Take-for-Fitment-to-Show-on-Amazon",
+    "previousUrl": "",
+    "flagupdate": false,
+    "delete": false
+  },
+  {
+    "id": 40,
+    "currentUrl": "https://partsconnect.zendesk.com/hc/en-us/articles/11316466305293-eBay-Subscriptions-Plan",
+    "previousUrl": "",
+    "flagupdate": false,
+    "delete": false
+  },
+  {
+    "id": 41,
+    "currentUrl": "https://partsconnect.zendesk.com/hc/en-us/articles/11316643816717-How-to-setup-eBay-with-PCFitment",
+    "previousUrl": "",
+    "flagupdate": false,
+    "delete": false
+  },
+  {
+    "id": 42,
+    "currentUrl": "https://partsconnect.zendesk.com/hc/en-us/articles/11316343045133-eBay-PartNumber-SKU-Mapping",
+    "previousUrl": "",
+    "flagupdate": false,
+    "delete": false
+  },
+  {
+    "id": 43,
+    "currentUrl": "https://partsconnect.zendesk.com/hc/en-us/articles/11315588106253-eBay-Fitments-in-Excel-from-PCFitment",
+    "previousUrl": "",
+    "flagupdate": false,
+    "delete": false
+  },
+  {
+    "id": 44,
+    "currentUrl": "https://partsconnect.zendesk.com/hc/en-us/articles/11316766570381-Submit-Compatibility-Listings-on-eBay",
+    "previousUrl": "",
+    "flagupdate": false,
+    "delete": false
+  },
+  {
+    "id": 45,
+    "currentUrl": "https://partsconnect.zendesk.com/hc/en-us/articles/36410081563149-eBay-Vehicle-Lookup-Viewer",
+    "previousUrl": "",
+    "flagupdate": false,
+    "delete": false
+  },
+  {
+    "id": 46,
+    "currentUrl": "https://partsconnect.zendesk.com/hc/en-us/articles/39964842410893-How-to-add-eBay-Specific-Vehicle-Fitment",
+    "previousUrl": "",
+    "flagupdate": false,
+    "delete": false
+  },
+  {
+    "id": 47,
+    "currentUrl": "https://partsconnect.zendesk.com/hc/en-us/articles/11316125772813-Download-Fitment-from-eBay-and-Convert-it-to-Amazon-supported-format",
+    "previousUrl": "",
+    "flagupdate": false,
+    "delete": false
+  },
+  {
+    "id": 48,
+    "currentUrl": "https://partsconnect.zendesk.com/hc/en-us/articles/11315925580429-How-do-I-copy-fitment-from-eBay-to-the-existing-Part-Number",
+    "previousUrl": "",
+    "flagupdate": false,
+    "delete": false
+  },
+  {
+    "id": 49,
+    "currentUrl": "https://partsconnect.zendesk.com/hc/en-us/articles/35702188846093-Download-Fitment-from-OE-and-Convert-it-to-Amazon-supported-format",
+    "previousUrl": "",
+    "flagupdate": false,
+    "delete": false
+  },
+  {
+    "id": 50,
+    "currentUrl": "https://partsconnect.zendesk.com/hc/en-us/articles/35702324712589-How-do-I-copy-fitment-from-OE-Original-Equipment-to-the-existing-Part-Number",
+    "previousUrl": "",
+    "flagupdate": false,
+    "delete": false
+  },
+  {
+    "id": 51,
+    "currentUrl": "https://partsconnect.zendesk.com/hc/en-us/articles/47664988082701-How-do-I-copy-fitment-from-VIN-Vehicle-Identification-Number-the-existing-Part-Number",
+    "previousUrl": "",
+    "flagupdate": false,
+    "delete": false
+  },
+  {
+    "id": 52,
+    "currentUrl": "https://partsconnect.zendesk.com/hc/en-us/articles/47664934096909-Download-Fitment-from-VIN-and-Convert-it-to-Amazon-Supported-Format",
+    "previousUrl": "",
+    "flagupdate": false,
+    "delete": false
+  },
+  {
+    "id": 53,
+    "currentUrl": "https://partsconnect.zendesk.com/hc/en-us/articles/115001705212-Auto-Care-Association-Updates",
+    "previousUrl": "",
+    "flagupdate": false,
+    "delete": false
+  },
+  {
+    "id": 54,
+    "currentUrl": "https://partsconnect.zendesk.com/hc/en-us/articles/115001320052-PCDB-Viewer",
+    "previousUrl": "",
+    "flagupdate": false,
+    "delete": false
+  },
+  {
+    "id": 55,
+    "currentUrl": "https://partsconnect.zendesk.com/hc/en-us/articles/115001313751-VCDB-Viewer",
+    "previousUrl": "",
+    "flagupdate": false,
+    "delete": false
+  },
+  {
+    "id": 56,
+    "currentUrl": "https://partsconnect.zendesk.com/hc/en-us/articles/31443402521613-Coverage-Report-Data-Guide",
+    "previousUrl": "",
+    "flagupdate": false,
+    "delete": false
+  },
+  {
+    "id": 57,
+    "currentUrl": "https://partsconnect.zendesk.com/hc/en-us/articles/35670757877261-Plugin-Integration",
+    "previousUrl": "",
+    "flagupdate": false,
+    "delete": false
+  },
+  {
+    "id": 58,
+    "currentUrl": "https://partsconnect.zendesk.com/hc/en-us/articles/37261383530765-How-to-Add-YMM-Filter-Integration-to-Your-eCommerce-Store-Using-PCFitment",
+    "previousUrl": "",
+    "flagupdate": false,
+    "delete": false
+  },
+  {
+    "id": 59,
+    "currentUrl": "https://partsconnect.zendesk.com/hc/en-us/articles/35670795634061-VIN-Search-Solution-for-Automotive-eCommerce",
+    "previousUrl": "",
+    "flagupdate": false,
+    "delete": false
+  },
+  {
+    "id": 60,
+    "currentUrl": "https://partsconnect.zendesk.com/hc/en-us/articles/35857655646605-How-do-I-copy-fitment-from-PCFitment-to-the-existing-Part-Number",
+    "previousUrl": "",
+    "flagupdate": false,
+    "delete": false
+  },
+  {
+    "id": 61,
+    "currentUrl": "https://partsconnect.zendesk.com/hc/en-us/articles/42907184234509-PCFitment-User-Guide-Custom-Fitment",
+    "previousUrl": "",
+    "flagupdate": false,
+    "delete": false
+  },
+  {
+    "id": 62,
+    "currentUrl": "https://partsconnect.zendesk.com/hc/en-us/articles/42906925322765-Automating-Amazon-Product-Reviews-with-PCFitment",
+    "previousUrl": "",
+    "flagupdate": false,
+    "delete": false
+  },
+  {
+    "id": 63,
+    "currentUrl": "https://partsconnect.zendesk.com/hc/en-us/articles/41468816912525-Managing-Overlap-Fitments",
+    "previousUrl": "",
+    "flagupdate": false,
+    "delete": false
+  },
+  {
+    "id": 64,
+    "currentUrl": "https://partsconnect.zendesk.com/hc/en-us/articles/37985033414157-Introducing-PCCoins-Get-Rewarded-for-Every-Subscription",
+    "previousUrl": "",
+    "flagupdate": false,
+    "delete": false
+  },
+  {
+    "id": 65,
+    "currentUrl": "https://partsconnect.zendesk.com/hc/en-us/articles/115001695511-Coming-from-another-provider",
+    "previousUrl": "",
+    "flagupdate": false,
+    "delete": false
+  },
+  {
+    "id": 66,
+    "currentUrl": "https://partsconnect.zendesk.com/hc/en-us/articles/41071243381773-Amazon-Walmart-Part-Mapping-Function-in-PCFitment",
+    "previousUrl": "",
+    "flagupdate": false,
+    "delete": false
+  },
+  {
+    "id": 67,
+    "currentUrl": "https://partsconnect.zendesk.com/hc/en-us/articles/36112569832973-What-is-the-Resubmit-Fitments-Feature",
+    "previousUrl": "",
+    "flagupdate": false,
+    "delete": false
+  },
+  {
+    "id": 68,
+    "currentUrl": "https://partsconnect.zendesk.com/hc/en-us/articles/35823588036877-Forgot-Password",
+    "previousUrl": "",
+    "flagupdate": false,
+    "delete": false
+  },
+  {
+    "id": 69,
+    "currentUrl": "https://partsconnect.zendesk.com/hc/en-us/articles/35673653590157-Use-of-Brand-Code",
+    "previousUrl": "",
+    "flagupdate": false,
+    "delete": false
+  },
+  {
+    "id": 70,
+    "currentUrl": "https://partsconnect.zendesk.com/hc/en-us/articles/115001118251-FAQ",
+    "previousUrl": "",
+    "flagupdate": false,
+    "delete": false
+  },
+  {
+    "id": 71,
+    "currentUrl": "https://partsconnect.zendesk.com/hc/en-us/articles/35794715143437-After-Your-Trial-Ends-Choose-the-Right-PCFitment-Subscription-Plan",
+    "previousUrl": "",
+    "flagupdate": false,
+    "delete": false
+  },
+  {
+    "id": 72,
+    "currentUrl": "https://partsconnect.zendesk.com/hc/en-us/articles/360035048172-How-to-update-change-your-credit-card-information",
+    "previousUrl": "",
+    "flagupdate": false,
+    "delete": false
+  },
+  {
+    "id": 73,
+    "currentUrl": "https://partsconnect.zendesk.com/hc/en-us/articles/115001118271-Pricing",
+    "previousUrl": "",
+    "flagupdate": false,
+    "delete": false
+  }
+]

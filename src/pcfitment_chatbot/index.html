@@ -1,0 +1,2338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Articles JSON Manager</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f6f9;
+            color: #1f2937;
+        }
+
+        .container {
+            max-width: 1500px;
+            margin: 0 auto;
+            padding: 25px;
+        }
+
+        .header {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+        }
+
+        .header h1 {
+            margin: 0 0 8px;
+            font-size: 28px;
+        }
+
+        .header p {
+            margin: 0;
+            color: #6b7280;
+        }
+
+        .toolbar {
+            background: #ffffff;
+            padding: 18px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        button {
+            border: none;
+            border-radius: 7px;
+            padding: 10px 16px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+
+        button:hover {
+            opacity: 0.88;
+        }
+
+        .btn-primary {
+            background: #2563eb;
+            color: white;
+        }
+
+        .btn-success {
+            background: #16a34a;
+            color: white;
+        }
+
+        .btn-warning {
+            background: #f59e0b;
+            color: white;
+        }
+
+        .btn-danger {
+            background: #dc2626;
+            color: white;
+        }
+
+        .btn-secondary {
+            background: #6b7280;
+            color: white;
+        }
+
+        .btn-info {
+            background: #0891b2;
+            color: white;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 10px 13px;
+            border: 1px solid #d1d5db;
+            border-radius: 7px;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .search-box input:focus {
+            border-color: #2563eb;
+        }
+
+        .file-info {
+            width: 100%;
+            margin-top: 5px;
+            font-size: 13px;
+            color: #6b7280;
+        }
+
+        .file-info strong {
+            color: #16a34a;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 18px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+        }
+
+        .stat-card .label {
+            color: #6b7280;
+            font-size: 13px;
+            margin-bottom: 8px;
+        }
+
+        .stat-card .value {
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+        .table-container {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 1200px;
+        }
+
+        thead {
+            background: #111827;
+            color: white;
+        }
+
+        th,
+        td {
+            padding: 13px 12px;
+            text-align: left;
+            border-bottom: 1px solid #e5e7eb;
+            vertical-align: middle;
+        }
+
+        th {
+            font-size: 13px;
+            white-space: nowrap;
+        }
+
+        td {
+            font-size: 13px;
+        }
+
+        tbody tr:hover {
+            background: #f9fafb;
+        }
+
+        .url-cell {
+            max-width: 360px;
+            word-break: break-all;
+        }
+
+        .url-cell a {
+            color: #2563eb;
+            text-decoration: none;
+        }
+
+        .url-cell a:hover {
+            text-decoration: underline;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 5px 9px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .badge-true {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .badge-false {
+            background: #f3f4f6;
+            color: #4b5563;
+        }
+
+        .badge-delete {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .actions {
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
+        }
+
+        .actions button {
+            padding: 7px 9px;
+            font-size: 12px;
+        }
+
+        .empty {
+            text-align: center;
+            padding: 50px;
+            color: #6b7280;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.55);
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            width: 100%;
+            max-width: 600px;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
+        }
+
+        .modal-content h2 {
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 7px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 11px;
+            border: 1px solid #d1d5db;
+            border-radius: 7px;
+            font-size: 14px;
+            outline: none;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: #2563eb;
+        }
+
+        .form-group textarea {
+            min-height: 180px;
+            resize: vertical;
+        }
+
+        .modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .json-preview {
+            background: #111827;
+            color: #d1d5db;
+            padding: 15px;
+            border-radius: 8px;
+            max-height: 500px;
+            overflow: auto;
+            font-family: Consolas, monospace;
+            font-size: 12px;
+            white-space: pre;
+        }
+
+        .status {
+            padding: 10px 14px;
+            border-radius: 7px;
+            margin-bottom: 15px;
+            display: none;
+            font-size: 14px;
+        }
+
+        .status.show {
+            display: block;
+        }
+
+        .status.success {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .status.error {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .status.info {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .modified-row {
+            background: #fffbeb !important;
+        }
+
+        .deleted-row {
+            background: #fef2f2 !important;
+        }
+
+        .no-previous {
+            color: #9ca3af;
+            font-style: italic;
+        }
+
+        .loading {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.7);
+            align-items: center;
+            justify-content: center;
+        }
+
+        .loading.show {
+            display: flex;
+        }
+
+        .loading-box {
+            background: white;
+            padding: 25px 35px;
+            border-radius: 10px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+            font-weight: bold;
+        }
+
+        @media (max-width: 900px) {
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 12px;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            .toolbar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .toolbar button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="header">
+        <h1>Articles JSON Manager</h1>
+        <p>Manage PartsConnect article URLs directly in your <strong>article.json</strong> file.</p>
+    </div>
+
+    <div id="statusMessage" class="status"></div>
+
+    <div class="toolbar">
+
+        <button
+            class="btn-primary"
+            onclick="openJsonFile()">
+            📂 Open article.json
+        </button>
+
+        <button
+            class="btn-success"
+            onclick="saveJsonFile()">
+            💾 Save Changes
+        </button>
+
+        <button
+            class="btn-info"
+            onclick="openAddModal()">
+            ➕ Add URL
+        </button>
+
+        <button
+            class="btn-warning"
+            onclick="openBulkAddModal()">
+            ➕ Add Multiple
+        </button>
+
+        <button
+            class="btn-secondary"
+            onclick="showJsonPreview()">
+            👁 JSON Preview
+        </button>
+
+        <button
+            class="btn-secondary"
+            onclick="reloadFile()">
+            🔄 Reload
+        </button>
+
+        <div class="search-box">
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Search by ID or URL..."
+                oninput="renderArticles()">
+        </div>
+
+        <div class="file-info">
+            File:
+            <strong id="fileName">No file selected</strong>
+        </div>
+
+    </div>
+
+    <div class="stats">
+
+        <div class="stat-card">
+            <div class="label">Total</div>
+            <div class="value" id="totalCount">0</div>
+        </div>
+
+        <div class="stat-card">
+            <div class="label">Updated</div>
+            <div class="value" id="updatedCount">0</div>
+        </div>
+
+        <div class="stat-card">
+            <div class="label">Deleted</div>
+            <div class="value" id="deletedCount">0</div>
+        </div>
+
+        <div class="stat-card">
+            <div class="label">With Previous URL</div>
+            <div class="value" id="previousCount">0</div>
+        </div>
+
+        <div class="stat-card">
+            <div class="label">Active</div>
+            <div class="value" id="activeCount">0</div>
+        </div>
+
+    </div>
+
+    <div class="table-container">
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Current URL</th>
+                        <th>Previous URL</th>
+                        <th>Flag Update</th>
+                        <th>Delete</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody id="articlesTableBody">
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- Add URL Modal -->
+
+<div id="addModal" class="modal">
+
+    <div class="modal-content">
+
+        <h2>Add New URL</h2>
+
+        <div class="form-group">
+
+            <label for="newUrl">
+                Current URL
+            </label>
+
+            <input
+                type="url"
+                id="newUrl"
+                placeholder="https://partsconnect.zendesk.com/hc/en-us/articles/...">
+
+        </div>
+
+        <div class="modal-actions">
+
+            <button
+                class="btn-secondary"
+                onclick="closeModal('addModal')">
+                Cancel
+            </button>
+
+            <button
+                class="btn-success"
+                onclick="addArticle()">
+                Add URL
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- Change URL Modal -->
+
+<div id="changeModal" class="modal">
+
+    <div class="modal-content">
+
+        <h2>Change Article URL</h2>
+
+        <div class="form-group">
+
+            <label>
+                Article ID
+            </label>
+
+            <input
+                type="text"
+                id="changeId"
+                readonly>
+
+        </div>
+
+        <div class="form-group">
+
+            <label>
+                Previous URL
+            </label>
+
+            <input
+                type="text"
+                id="changePreviousUrl"
+                readonly>
+
+        </div>
+
+        <div class="form-group">
+
+            <label>
+                New Current URL
+            </label>
+
+            <input
+                type="url"
+                id="changeCurrentUrl"
+                placeholder="Enter new URL">
+
+        </div>
+
+        <div class="modal-actions">
+
+            <button
+                class="btn-secondary"
+                onclick="closeModal('changeModal')">
+                Cancel
+            </button>
+
+            <button
+                class="btn-success"
+                onclick="changeArticleUrl()">
+                Change URL
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- Bulk Add Modal -->
+
+<div id="bulkModal" class="modal">
+
+    <div class="modal-content">
+
+        <h2>Add Multiple URLs</h2>
+
+        <div class="form-group">
+
+            <label>
+                URLs
+            </label>
+
+            <textarea
+                id="bulkUrls"
+                placeholder="Put one URL per line
+
+https://partsconnect.zendesk.com/hc/en-us/articles/example-1
+https://partsconnect.zendesk.com/hc/en-us/articles/example-2"></textarea>
+
+        </div>
+
+        <div class="modal-actions">
+
+            <button
+                class="btn-secondary"
+                onclick="closeModal('bulkModal')">
+                Cancel
+            </button>
+
+            <button
+                class="btn-success"
+                onclick="addBulkArticles()">
+                Add URLs
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- JSON Preview Modal -->
+
+<div id="previewModal" class="modal">
+
+    <div class="modal-content" style="max-width: 1000px;">
+
+        <h2>JSON Preview</h2>
+
+        <div
+            id="jsonPreview"
+            class="json-preview">
+        </div>
+
+        <div class="modal-actions">
+
+            <button
+                class="btn-secondary"
+                onclick="closeModal('previewModal')">
+                Close
+            </button>
+
+            <button
+                class="btn-success"
+                onclick="copyJson()">
+                Copy JSON
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- Loading -->
+
+<div id="loading" class="loading">
+
+    <div class="loading-box">
+        Processing...
+    </div>
+
+</div>
+
+
+<script>
+
+    // ============================================================
+    // GLOBAL VARIABLES
+    // ============================================================
+
+    let articles = [];
+
+    let fileHandle = null;
+
+    let hasUnsavedChanges = false;
+
+
+    // ============================================================
+    // INITIALIZE
+    // ============================================================
+
+    document.addEventListener("DOMContentLoaded", function () {
+
+        renderArticles();
+
+        updateStats();
+
+    });
+
+
+    // ============================================================
+    // OPEN JSON FILE
+    // ============================================================
+
+    async function openJsonFile() {
+
+        try {
+
+            if (!window.showOpenFilePicker) {
+
+                showStatus(
+                    "Your browser does not support the File System Access API. Please use Google Chrome or Microsoft Edge.",
+                    "error"
+                );
+
+                return;
+            }
+
+
+            const [handle] = await window.showOpenFilePicker({
+
+                types: [
+                    {
+                        description: "JSON Files",
+                        accept: {
+                            "application/json": [".json"]
+                        }
+                    }
+                ],
+
+                multiple: false
+
+            });
+
+
+            fileHandle = handle;
+
+
+            const file = await fileHandle.getFile();
+
+            const text = await file.text();
+
+
+            if (!text.trim()) {
+
+                articles = [];
+
+            }
+            else {
+
+                const parsed = JSON.parse(text);
+
+
+                if (!Array.isArray(parsed)) {
+
+                    throw new Error(
+                        "JSON file must contain an array."
+                    );
+
+                }
+
+
+                articles = normalizeArticles(parsed);
+
+            }
+
+
+            hasUnsavedChanges = false;
+
+
+            document.getElementById("fileName").textContent =
+                file.name;
+
+
+            renderArticles();
+
+            updateStats();
+
+
+            showStatus(
+                "article.json loaded successfully.",
+                "success"
+            );
+
+        }
+        catch (error) {
+
+            console.error(error);
+
+
+            if (error.name === "AbortError") {
+
+                return;
+
+            }
+
+
+            showStatus(
+                "Failed to open JSON: " + error.message,
+                "error"
+            );
+
+        }
+
+    }
+
+
+    // ============================================================
+    // NORMALIZE ARTICLES
+    // ============================================================
+
+    function normalizeArticles(data) {
+
+        return data.map(item => {
+
+            return {
+
+                id: Number(item.id) || 0,
+
+                currentUrl:
+                    item.currentUrl || "",
+
+                previousUrl:
+                    item.previousUrl || "",
+
+                flagupdate:
+                    Boolean(item.flagupdate),
+
+                delete:
+                    Boolean(item.delete)
+
+            };
+
+        });
+
+    }
+
+
+    // ============================================================
+    // SAVE JSON FILE
+    // ============================================================
+
+    async function saveJsonFile() {
+
+        try {
+
+            if (!fileHandle) {
+
+                showStatus(
+                    "Please open your data/article.json file first.",
+                    "error"
+                );
+
+                return;
+
+            }
+
+
+            showLoading(true);
+
+
+            const permission =
+                await verifyPermission(
+                    fileHandle,
+                    true
+                );
+
+
+            if (!permission) {
+
+                showLoading(false);
+
+                showStatus(
+                    "Write permission was not granted.",
+                    "error"
+                );
+
+                return;
+
+            }
+
+
+            const writable =
+                await fileHandle.createWritable();
+
+
+            const json =
+                JSON.stringify(
+                    articles,
+                    null,
+                    2
+                );
+
+
+            await writable.write(json);
+
+            await writable.close();
+
+
+            hasUnsavedChanges = false;
+
+
+            showLoading(false);
+
+
+            showStatus(
+                "Changes saved directly to article.json successfully.",
+                "success"
+            );
+
+        }
+        catch (error) {
+
+            console.error(error);
+
+
+            showLoading(false);
+
+
+            showStatus(
+                "Failed to save JSON: " + error.message,
+                "error"
+            );
+
+        }
+
+    }
+
+
+    // ============================================================
+    // FILE PERMISSION
+    // ============================================================
+
+    async function verifyPermission(
+        handle,
+        write = false
+    ) {
+
+        const options = {
+            mode: write ? "readwrite" : "read"
+        };
+
+
+        if (
+            await handle.queryPermission(options)
+            === "granted"
+        ) {
+
+            return true;
+
+        }
+
+
+        if (
+            await handle.requestPermission(options)
+            === "granted"
+        ) {
+
+            return true;
+
+        }
+
+
+        return false;
+
+    }
+
+
+    // ============================================================
+    // RELOAD FILE
+    // ============================================================
+
+    async function reloadFile() {
+
+        if (!fileHandle) {
+
+            showStatus(
+                "Please open article.json first.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        if (hasUnsavedChanges) {
+
+            const confirmReload =
+                confirm(
+                    "You have unsaved changes. Reloading will discard them. Continue?"
+                );
+
+
+            if (!confirmReload) {
+
+                return;
+
+            }
+
+        }
+
+
+        try {
+
+            const file =
+                await fileHandle.getFile();
+
+
+            const text =
+                await file.text();
+
+
+            const parsed =
+                JSON.parse(text);
+
+
+            if (!Array.isArray(parsed)) {
+
+                throw new Error(
+                    "JSON file must contain an array."
+                );
+
+            }
+
+
+            articles =
+                normalizeArticles(parsed);
+
+
+            hasUnsavedChanges = false;
+
+
+            renderArticles();
+
+            updateStats();
+
+
+            showStatus(
+                "File reloaded successfully.",
+                "success"
+            );
+
+        }
+        catch (error) {
+
+            showStatus(
+                "Failed to reload file: " + error.message,
+                "error"
+            );
+
+        }
+
+    }
+
+
+    // ============================================================
+    // ADD URL MODAL
+    // ============================================================
+
+    function openAddModal() {
+
+        document.getElementById("newUrl").value = "";
+
+        document
+            .getElementById("addModal")
+            .classList
+            .add("show");
+
+
+        setTimeout(() => {
+
+            document
+                .getElementById("newUrl")
+                .focus();
+
+        }, 100);
+
+    }
+
+
+    // ============================================================
+    // ADD ARTICLE
+    // ============================================================
+
+    function addArticle() {
+
+        const input =
+            document.getElementById("newUrl");
+
+
+        const url =
+            input.value.trim();
+
+
+        if (!url) {
+
+            showStatus(
+                "Please enter a URL.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        if (!isValidUrl(url)) {
+
+            showStatus(
+                "Please enter a valid URL.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        if (
+            isDuplicateUrl(url)
+        ) {
+
+            showStatus(
+                "This URL already exists.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        const newId =
+            getNextId();
+
+
+        const newArticle = {
+
+            id: newId,
+
+            currentUrl: url,
+
+            previousUrl: "",
+
+            flagupdate: false,
+
+            delete: false
+
+        };
+
+
+        articles.push(newArticle);
+
+
+        hasUnsavedChanges = true;
+
+
+        closeModal("addModal");
+
+
+        renderArticles();
+
+        updateStats();
+
+
+        showStatus(
+            "URL added. Click Save Changes to write it to article.json.",
+            "success"
+        );
+
+    }
+
+
+    // ============================================================
+    // ADD MULTIPLE URLS
+    // ============================================================
+
+    function openBulkAddModal() {
+
+        document.getElementById("bulkUrls").value = "";
+
+
+        document
+            .getElementById("bulkModal")
+            .classList
+            .add("show");
+
+    }
+
+
+    function addBulkArticles() {
+
+        const textarea =
+            document.getElementById("bulkUrls");
+
+
+        const text =
+            textarea.value.trim();
+
+
+        if (!text) {
+
+            showStatus(
+                "Please enter at least one URL.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        const urls =
+            text
+                .split(/\r?\n/)
+                .map(url => url.trim())
+                .filter(url => url);
+
+
+        let added = 0;
+
+        let skipped = 0;
+
+
+        urls.forEach(url => {
+
+            if (!isValidUrl(url)) {
+
+                skipped++;
+
+                return;
+
+            }
+
+
+            if (isDuplicateUrl(url)) {
+
+                skipped++;
+
+                return;
+
+            }
+
+
+            articles.push({
+
+                id: getNextId(),
+
+                currentUrl: url,
+
+                previousUrl: "",
+
+                flagupdate: false,
+
+                delete: false
+
+            });
+
+
+            added++;
+
+        });
+
+
+        if (added > 0) {
+
+            hasUnsavedChanges = true;
+
+        }
+
+
+        closeModal("bulkModal");
+
+
+        renderArticles();
+
+        updateStats();
+
+
+        showStatus(
+            `${added} URL(s) added. ${skipped} skipped.`,
+            added > 0 ? "success" : "error"
+        );
+
+    }
+
+
+    // ============================================================
+    // CHANGE URL
+    // ============================================================
+
+    function openChangeModal(id) {
+
+        const article =
+            articles.find(
+                item => item.id === id
+            );
+
+
+        if (!article) {
+
+            return;
+
+        }
+
+
+        document.getElementById("changeId").value =
+            article.id;
+
+
+        document.getElementById("changePreviousUrl").value =
+            article.currentUrl;
+
+
+        document.getElementById("changeCurrentUrl").value =
+            "";
+
+
+        document
+            .getElementById("changeModal")
+            .classList
+            .add("show");
+
+
+        setTimeout(() => {
+
+            document
+                .getElementById("changeCurrentUrl")
+                .focus();
+
+        }, 100);
+
+    }
+
+
+    function changeArticleUrl() {
+
+        const id =
+            Number(
+                document.getElementById("changeId").value
+            );
+
+
+        const newUrl =
+            document
+                .getElementById("changeCurrentUrl")
+                .value
+                .trim();
+
+
+        if (!newUrl) {
+
+            showStatus(
+                "Please enter the new URL.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        if (!isValidUrl(newUrl)) {
+
+            showStatus(
+                "Please enter a valid URL.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        const article =
+            articles.find(
+                item => item.id === id
+            );
+
+
+        if (!article) {
+
+            return;
+
+        }
+
+
+        if (
+            article.currentUrl === newUrl
+        ) {
+
+            showStatus(
+                "New URL is the same as current URL.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        if (
+            isDuplicateUrl(
+                newUrl,
+                id
+            )
+        ) {
+
+            showStatus(
+                "This URL is already used by another article.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        /*
+            Preserve the original current URL
+            as previousUrl.
+        */
+
+        article.previousUrl =
+            article.currentUrl;
+
+
+        article.currentUrl =
+            newUrl;
+
+
+        article.flagupdate = true;
+
+        article.delete = false;
+
+
+        hasUnsavedChanges = true;
+
+
+        closeModal("changeModal");
+
+
+        renderArticles();
+
+        updateStats();
+
+
+        showStatus(
+            "URL changed successfully. Click Save Changes.",
+            "success"
+        );
+
+    }
+
+
+    // ============================================================
+    // UPDATE FLAG
+    // ============================================================
+
+    function toggleUpdate(id) {
+
+        const article =
+            articles.find(
+                item => item.id === id
+            );
+
+
+        if (!article) {
+
+            return;
+
+        }
+
+
+        article.flagupdate =
+            !article.flagupdate;
+
+
+        hasUnsavedChanges = true;
+
+
+        renderArticles();
+
+        updateStats();
+
+
+        showStatus(
+            "Update flag changed.",
+            "info"
+        );
+
+    }
+
+
+    // ============================================================
+    // DELETE FLAG
+    // ============================================================
+
+    function toggleDelete(id) {
+
+        const article =
+            articles.find(
+                item => item.id === id
+            );
+
+
+        if (!article) {
+
+            return;
+
+        }
+
+
+        article.delete =
+            !article.delete;
+
+
+        hasUnsavedChanges = true;
+
+
+        renderArticles();
+
+        updateStats();
+
+
+        showStatus(
+            article.delete
+                ? "Article marked for deletion."
+                : "Article restored.",
+            article.delete
+                ? "error"
+                : "success"
+        );
+
+    }
+
+
+    // ============================================================
+    // UNDO URL CHANGE
+    // ============================================================
+
+    function undoChange(id) {
+
+        const article =
+            articles.find(
+                item => item.id === id
+            );
+
+
+        if (!article) {
+
+            return;
+
+        }
+
+
+        if (!article.previousUrl) {
+
+            showStatus(
+                "There is no previous URL to restore.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        const confirmUndo =
+            confirm(
+                "Restore the previous URL?"
+            );
+
+
+        if (!confirmUndo) {
+
+            return;
+
+        }
+
+
+        article.currentUrl =
+            article.previousUrl;
+
+
+        article.previousUrl =
+            "";
+
+
+        article.flagupdate =
+            false;
+
+
+        hasUnsavedChanges = true;
+
+
+        renderArticles();
+
+        updateStats();
+
+
+        showStatus(
+            "Previous URL restored.",
+            "success"
+        );
+
+    }
+
+
+    // ============================================================
+    // RENDER ARTICLES
+    // ============================================================
+
+    function renderArticles() {
+
+        const tbody =
+            document.getElementById(
+                "articlesTableBody"
+            );
+
+
+        const search =
+            document
+                .getElementById("searchInput")
+                .value
+                .trim()
+                .toLowerCase();
+
+
+        let filtered =
+            articles.filter(article => {
+
+                if (!search) {
+
+                    return true;
+
+                }
+
+
+                return (
+
+                    String(article.id)
+                        .toLowerCase()
+                        .includes(search)
+
+                    ||
+
+                    article.currentUrl
+                        .toLowerCase()
+                        .includes(search)
+
+                    ||
+
+                    article.previousUrl
+                        .toLowerCase()
+                        .includes(search)
+
+                );
+
+            });
+
+
+        if (filtered.length === 0) {
+
+            tbody.innerHTML = `
+
+                <tr>
+
+                    <td
+                        colspan="6"
+                        class="empty">
+
+                        No articles found.
+
+                    </td>
+
+                </tr>
+
+            `;
+
+            return;
+
+        }
+
+
+        tbody.innerHTML =
+            filtered
+                .map(article => {
+
+                    const rowClass =
+                        article.delete
+                            ? "deleted-row"
+                            : article.flagupdate
+                                ? "modified-row"
+                                : "";
+
+
+                    const previousUrl =
+                        article.previousUrl
+                            ? `
+
+                                <a
+                                    href="${escapeAttribute(article.previousUrl)}"
+                                    target="_blank">
+
+                                    ${escapeHtml(article.previousUrl)}
+
+                                </a>
+
+                              `
+                            : `
+
+                                <span class="no-previous">
+                                    Empty
+                                </span>
+
+                              `;
+
+
+                    return `
+
+                        <tr class="${rowClass}">
+
+                            <td>
+                                <strong>
+                                    ${article.id}
+                                </strong>
+                            </td>
+
+
+                            <td class="url-cell">
+
+                                <a
+                                    href="${escapeAttribute(article.currentUrl)}"
+                                    target="_blank">
+
+                                    ${escapeHtml(article.currentUrl)}
+
+                                </a>
+
+                            </td>
+
+
+                            <td class="url-cell">
+
+                                ${previousUrl}
+
+                            </td>
+
+
+                            <td>
+
+                                <span
+                                    class="badge ${
+                                        article.flagupdate
+                                            ? "badge-true"
+                                            : "badge-false"
+                                    }">
+
+                                    ${
+                                        article.flagupdate
+                                            ? "TRUE"
+                                            : "FALSE"
+                                    }
+
+                                </span>
+
+                            </td>
+
+
+                            <td>
+
+                                <span
+                                    class="badge ${
+                                        article.delete
+                                            ? "badge-delete"
+                                            : "badge-false"
+                                    }">
+
+                                    ${
+                                        article.delete
+                                            ? "TRUE"
+                                            : "FALSE"
+                                    }
+
+                                </span>
+
+                            </td>
+
+
+                            <td>
+
+                                <div class="actions">
+
+                                    <button
+                                        class="btn-info"
+                                        onclick="toggleUpdate(${article.id})">
+
+                                        ${
+                                            article.flagupdate
+                                                ? "Unflag"
+                                                : "Update"
+                                        }
+
+                                    </button>
+
+
+                                    <button
+                                        class="btn-warning"
+                                        onclick="openChangeModal(${article.id})">
+
+                                        Change URL
+
+                                    </button>
+
+
+                                    ${
+                                        article.previousUrl
+                                            ? `
+
+                                                <button
+                                                    class="btn-secondary"
+                                                    onclick="undoChange(${article.id})">
+
+                                                    Undo
+
+                                                </button>
+
+                                              `
+                                            : ""
+                                    }
+
+
+                                    <button
+                                        class="${
+                                            article.delete
+                                                ? "btn-success"
+                                                : "btn-danger"
+                                        }"
+                                        onclick="toggleDelete(${article.id})">
+
+                                        ${
+                                            article.delete
+                                                ? "Restore"
+                                                : "Delete"
+                                        }
+
+                                    </button>
+
+                                </div>
+
+                            </td>
+
+                        </tr>
+
+                    `;
+
+                })
+                .join("");
+
+    }
+
+
+    // ============================================================
+    // UPDATE STATISTICS
+    // ============================================================
+
+    function updateStats() {
+
+        const total =
+            articles.length;
+
+
+        const updated =
+            articles.filter(
+                article => article.flagupdate
+            ).length;
+
+
+        const deleted =
+            articles.filter(
+                article => article.delete
+            ).length;
+
+
+        const previous =
+            articles.filter(
+                article => article.previousUrl
+            ).length;
+
+
+        const active =
+            articles.filter(
+                article => !article.delete
+            ).length;
+
+
+        document.getElementById("totalCount")
+            .textContent = total;
+
+
+        document.getElementById("updatedCount")
+            .textContent = updated;
+
+
+        document.getElementById("deletedCount")
+            .textContent = deleted;
+
+
+        document.getElementById("previousCount")
+            .textContent = previous;
+
+
+        document.getElementById("activeCount")
+            .textContent = active;
+
+    }
+
+
+    // ============================================================
+    // GET NEXT ID
+    // ============================================================
+
+    function getNextId() {
+
+        if (articles.length === 0) {
+
+            return 1;
+
+        }
+
+
+        return Math.max(
+            ...articles.map(
+                article => Number(article.id) || 0
+            )
+        ) + 1;
+
+    }
+
+
+    // ============================================================
+    // DUPLICATE CHECK
+    // ============================================================
+
+    function isDuplicateUrl(
+        url,
+        ignoreId = null
+    ) {
+
+        const normalized =
+            url
+                .trim()
+                .toLowerCase();
+
+
+        return articles.some(article => {
+
+            if (
+                ignoreId !== null &&
+                article.id === ignoreId
+            ) {
+
+                return false;
+
+            }
+
+
+            return (
+                article.currentUrl
+                    .trim()
+                    .toLowerCase()
+                === normalized
+            );
+
+        });
+
+    }
+
+
+    // ============================================================
+    // URL VALIDATION
+    // ============================================================
+
+    function isValidUrl(url) {
+
+        try {
+
+            const parsed =
+                new URL(url);
+
+
+            return (
+                parsed.protocol === "http:"
+                ||
+                parsed.protocol === "https:"
+            );
+
+        }
+        catch {
+
+            return false;
+
+        }
+
+    }
+
+
+    // ============================================================
+    // JSON PREVIEW
+    // ============================================================
+
+    function showJsonPreview() {
+
+        const json =
+            JSON.stringify(
+                articles,
+                null,
+                2
+            );
+
+
+        document.getElementById(
+            "jsonPreview"
+        ).textContent = json;
+
+
+        document
+            .getElementById("previewModal")
+            .classList
+            .add("show");
+
+    }
+
+
+    // ============================================================
+    // COPY JSON
+    // ============================================================
+
+    async function copyJson() {
+
+        const json =
+            JSON.stringify(
+                articles,
+                null,
+                2
+            );
+
+
+        try {
+
+            await navigator.clipboard.writeText(json);
+
+
+            showStatus(
+                "JSON copied to clipboard.",
+                "success"
+            );
+
+        }
+        catch {
+
+            showStatus(
+                "Could not copy JSON.",
+                "error"
+            );
+
+        }
+
+    }
+
+
+    // ============================================================
+    // CLOSE MODAL
+    // ============================================================
+
+    function closeModal(id) {
+
+        document
+            .getElementById(id)
+            .classList
+            .remove("show");
+
+    }
+
+
+    // ============================================================
+    // CLOSE MODAL WHEN CLICKING OUTSIDE
+    // ============================================================
+
+    window.addEventListener(
+        "click",
+        function (event) {
+
+            if (
+                event.target.classList.contains("modal")
+            ) {
+
+                event.target.classList.remove("show");
+
+            }
+
+        }
+    );
+
+
+    // ============================================================
+    // ESCAPE HTML
+    // ============================================================
+
+    function escapeHtml(value) {
+
+        return String(value)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+
+    }
+
+
+    // ============================================================
+    // ESCAPE ATTRIBUTE
+    // ============================================================
+
+    function escapeAttribute(value) {
+
+        return escapeHtml(value);
+
+    }
+
+
+    // ============================================================
+    // STATUS MESSAGE
+    // ============================================================
+
+    let statusTimer = null;
+
+
+    function showStatus(
+        message,
+        type = "info"
+    ) {
+
+        const element =
+            document.getElementById(
+                "statusMessage"
+            );
+
+
+        element.textContent =
+            message;
+
+
+        element.className =
+            "status show " + type;
+
+
+        clearTimeout(statusTimer);
+
+
+        statusTimer =
+            setTimeout(() => {
+
+                element.classList.remove(
+                    "show"
+                );
+
+            }, 5000);
+
+    }
+
+
+    // ============================================================
+    // LOADING
+    // ============================================================
+
+    function showLoading(show) {
+
+        const element =
+            document.getElementById(
+                "loading"
+            );
+
+
+        if (show) {
+
+            element.classList.add("show");
+
+        }
+        else {
+
+            element.classList.remove("show");
+
+        }
+
+    }
+
+
+    // ============================================================
+    // KEYBOARD SHORTCUTS
+    // ============================================================
+
+    document.addEventListener(
+        "keydown",
+        function (event) {
+
+            // Ctrl + S
+            if (
+                event.ctrlKey &&
+                event.key.toLowerCase() === "s"
+            ) {
+
+                event.preventDefault();
+
+                saveJsonFile();
+
+            }
+
+
+            // Escape
+            if (
+                event.key === "Escape"
+            ) {
+
+                document
+                    .querySelectorAll(".modal.show")
+                    .forEach(modal => {
+
+                        modal.classList.remove("show");
+
+                    });
+
+            }
+
+        }
+    );
+
+
+    // ============================================================
+    // UNSAVED CHANGES WARNING
+    // ============================================================
+
+    window.addEventListener(
+        "beforeunload",
+        function (event) {
+
+            if (hasUnsavedChanges) {
+
+                event.preventDefault();
+
+                event.returnValue = "";
+
+            }
+
+        }
+    );
+
+</script>
+
+</body>
+</html>
