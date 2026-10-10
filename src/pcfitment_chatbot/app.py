@@ -36,6 +36,9 @@ def load_graph():
     # vector store at import time.
     sync_vector_database()
 
+    from mailer import start_mail_scheduler
+    start_mail_scheduler()
+    
     from graph import build_graph
 
     return build_graph()

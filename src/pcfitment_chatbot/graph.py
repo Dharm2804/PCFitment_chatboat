@@ -4,7 +4,7 @@ from typing import TypedDict
 
 from dotenv import load_dotenv
 from unanswered import log_unanswered
-from mailer import notify_unanswered
+
 
 load_dotenv()
 
@@ -174,8 +174,7 @@ chain = PROMPT | llm | StrOutputParser() | strip_thinking
 # ---------------------------------------------------------
 def report_unanswered(question: str):
     """Save to JSON, and email only if it's a new question."""
-    if log_unanswered(question):
-        notify_unanswered(question)
+    log_unanswered(question)
         
 def rewrite_question(state: GraphState):
     """Turn follow-up questions into standalone search queries."""
