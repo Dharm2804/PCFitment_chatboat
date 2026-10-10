@@ -11,3 +11,5 @@ lxml
 python-dotenv
 sentence-transformers
 streamlit
+
+pypdf

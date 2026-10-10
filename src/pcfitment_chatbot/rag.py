@@ -7,35 +7,21 @@ import chromadb
 from chromadb.config import Settings
 from langchain_core.documents import Document
 from langchain_text_splitters import RecursiveCharacterTextSplitter
-from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_chroma import Chroma
 
 from loader import CATEGORIES, load_article
+from embeddings import BASE_DIR, get_embeddings
 
 
-BASE_DIR = Path(__file__).resolve().parents[2]
 DB_ROOT = (BASE_DIR / "data" / "chroma_dbs").resolve()      # one sub-folder per article
 ARTICLES_JSON = (BASE_DIR / "data" / "articles.json").resolve()
-EMBEDDING_MODEL = "sentence-transformers/all-MiniLM-L6-v2"
 COLLECTION_NAME = "article"
 DEFAULT_CATEGORY = "General"
 
 DEBUG_SEARCH = True   # prints which articles were matched; set False when done
 
-_embeddings = None
 _stores = {}
 _active_urls = []          # URLs that currently exist (filled by sync_vector_database)
-
-
-def get_embeddings():
-    """Load the embedding model only once."""
-    global _embeddings
-    if _embeddings is None:
-        _embeddings = HuggingFaceEmbeddings(
-            model_name=EMBEDDING_MODEL,
-            encode_kwargs={"normalize_embeddings": True},
-        )
-    return _embeddings
 
 
 # ---------------------------------------------------------
@@ -281,15 +267,16 @@ def sync_vector_database():
 # Search across all article databases
 # ---------------------------------------------------------
 
-def search_all(question: str, k: int = 4):
-    """Search every active article DB, merge by cosine distance, return the global top k."""
+def search_all_scored(question: str, k: int = 4, query_vector=None):
+    """Return [(Document, distance)] - global top k across all article DBs."""
     urls = _active_urls or [
         _clean(e.get("currentUrl"))
         for e in load_articles_json()
         if _clean(e.get("currentUrl")) and not e.get("delete")
     ]
 
-    query_vector = get_embeddings().embed_query(question)   # embed only once
+    if query_vector is None:
+        query_vector = get_embeddings().embed_query(question)
     scored = []
 
     for url in urls:
@@ -300,29 +287,22 @@ def search_all(question: str, k: int = 4):
             count = collection.count()
             if count == 0:
                 continue
-
             result = collection.query(
                 query_embeddings=[query_vector],
                 n_results=min(k, count),
                 include=["documents", "metadatas", "distances"],
             )
-
             for text, meta, dist in zip(
-                result["documents"][0],
-                result["metadatas"][0],
-                result["distances"][0],
+                result["documents"][0], result["metadatas"][0], result["distances"][0]
             ):
                 scored.append((Document(page_content=text, metadata=meta or {}), dist))
-
         except Exception as error:
             print(f"Search failed in {folder_name(url)}: {error}")
 
-    scored.sort(key=lambda pair: pair[1])    # lower distance = more similar
-    top = scored[:k]
+    scored.sort(key=lambda pair: pair[1])
+    return scored[:k]
 
-    if DEBUG_SEARCH:
-        print("Top matches:")
-        for doc, dist in top:
-            print(f"  {dist:.3f}  {doc.metadata.get('title', '?')}")
 
-    return [doc for doc, _ in top]
+def search_all(question: str, k: int = 4):
+    """Articles only (kept for backward compatibility)."""
+    return [doc for doc, _ in search_all_scored(question, k)]

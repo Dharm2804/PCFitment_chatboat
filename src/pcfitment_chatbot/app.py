@@ -30,11 +30,11 @@ st.set_page_config(
 @st.cache_resource(show_spinner="Checking vector database and loading the chatbot...")
 def load_graph():
     """Runs once per server session (not on every message)."""
-    from rag import sync_vector_database
+    from retriever import sync_all
 
     # Must run BEFORE importing graph, because graph.py opens the
     # vector store at import time.
-    sync_vector_database()
+    sync_all()
 
     from mailer import start_mail_scheduler
     start_mail_scheduler()
@@ -49,10 +49,13 @@ def render_sources(sources):
     if not sources:
         return
     st.markdown("---")
-    st.markdown("**📚 Related articles:**")
+    st.markdown("**📚 Related sources:**")
     for src in sources:
-        title = src.get("title", src["url"])
-        st.markdown(f"- [{title}]({src['url']})")
+        title = src.get("title", "")
+        if src.get("url"):
+            st.markdown(f"- [{title}]({src['url']})")
+        else:
+            st.markdown(f"- {title}")
 
 
 # ---------------------------------------------------------

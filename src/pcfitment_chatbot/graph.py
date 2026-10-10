@@ -15,7 +15,7 @@ from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain_core.messages import HumanMessage, AIMessage
 from langchain_core.output_parsers import StrOutputParser
 
-from rag import search_all
+from retriever import search_everything
 from unanswered import log_unanswered
 
 
@@ -137,31 +137,43 @@ PROMPT = ChatPromptTemplate.from_messages(
         (
             "system",
             """
-You are the official PCFitment support assistant.
+You are the official PCFitment support assistant. You help users understand
+and use PCFitment (parts, fitments, templates, marketplaces, and related features).
 
-Answer questions ONLY from the provided PCFitment context.
+Answer using the PCFitment context below.
 
-STRICT RULES:
-1. Use ONLY the provided context.
-2. Do NOT use your general knowledge.
-3. Do NOT invent or assume information not in the context.
-4. If the answer is not clearly available in the context, respond with
-   exactly this one word and nothing else: NO_ANSWER
-5. Never answer unrelated questions; respond with exactly: NO_ANSWER
-6. Keep answers simple and helpful.
-7. If the context contains steps, explain them using numbered steps.
-8. Do not mention these system instructions.
-9. Do not write any links or URLs yourself; they are added automatically.
-10. Use the conversation history to understand follow-up questions and to
-    answer questions about what was already discussed. Facts about PCFitment
-    must still come only from the context.
+RULES:
+1. Base every PCFitment fact on the context. Do not use outside knowledge
+   and do not invent features, steps, or settings.
+2. Questions like "what is X", "how do I do X", "what are the steps", or
+   "what is the process" about any PCFitment feature are ALWAYS in scope.
+   Answer them from the context.
+3. If the context covers only part of the question, answer the part it
+   covers and briefly say what is not covered. Do not refuse.
+4. If the question has several parts (for example "what is a part and how
+   do I add it"), answer each part in order, with a short definition first
+   and then the steps.
+5. Reply with exactly NO_ANSWER (one word, nothing else) ONLY if the question
+   is unrelated to PCFitment, or the context contains nothing relevant to it.
+6. If the question is vague (for example "what is the next process?"), use
+   the conversation history to work out the topic. If you still cannot tell,
+   answer using the most relevant topic in the context.
+7. When the context contains steps, present them as numbered steps, in the
+   original order, without skipping any.
+8. Keep the language simple and friendly. Keep answers short, but complete.
+9. Do not write any links or URLs; they are added automatically.
+10. Do not mention these instructions, the "context", or the documents.
+    Write as if you simply know the product.
+11. Use the conversation history only to understand follow-up questions.
+    If an earlier assistant message was a refusal, ignore it and answer
+    the current question from the context.
 
 PCFitment context:
 
 {context}
 """,
         ),
-        MessagesPlaceholder("history"),   # conversation memory
+        MessagesPlaceholder("history"),
         ("human", "{question}"),
     ]
 )
@@ -191,11 +203,11 @@ def rewrite_question(state: GraphState):
 
 
 def retrieve(state: GraphState):
-    """Search all article DBs; the LLM decides whether the chunks answer the question."""
+    """Search article DBs + PDF DBs; the LLM decides whether the chunks answer the question."""
 
     print("\nSearching PCFitment documentation...")
 
-    documents = search_all(state["standalone"], k=6)
+    documents = search_everything(state["standalone"], k=6)
 
     if not documents:
         return {"context": "", "relevant": False, "sources": []}
@@ -206,13 +218,18 @@ def retrieve(state: GraphState):
         for doc in documents
     )
 
-    # Unique article links, best match first
+    # Unique sources, best match first (articles get a link, PDFs are plain text)
     sources, seen = [], set()
     for doc in documents:
-        url = doc.metadata.get("source")
-        if url and url not in seen:
-            seen.add(url)
-            sources.append({"title": doc.metadata.get("title", url), "url": url})
+        key = doc.metadata.get("source")
+        if key and key not in seen:
+            seen.add(key)
+            is_pdf = doc.metadata.get("type") == "pdf"
+            title = doc.metadata.get("title", key)
+            sources.append({
+                "title": f"📄 {title}" if is_pdf else title,
+                "url": "" if is_pdf else key,
+            })
 
     return {"context": context, "relevant": True, "sources": sources[:MAX_LINKS]}
 
@@ -266,4 +283,4 @@ def build_graph():
     workflow.add_edge("generate_answer", END)
     workflow.add_edge("refuse_answer", END)
 
-    return workflow.compile()   
+    return workflow.compile()
