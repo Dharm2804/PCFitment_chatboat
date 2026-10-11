@@ -13,3 +13,4 @@ sentence-transformers
 streamlit
 
 pypdf
+torchvision
