@@ -1,5 +1,3 @@
-# Ignore data folder
-data/
 
 # Python-generated files
 __pycache__/
