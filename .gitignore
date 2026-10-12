@@ -19,6 +19,7 @@ venv/
 
 # ChromaDB
 data/chroma_dbs/
+data/PDF_VectorDB/
 
 # Logs
 *.log
@@ -28,5 +29,4 @@ data/chroma_dbs/
 .idea/
 
 # OS
-.DS_Store
 Thumbs.db
